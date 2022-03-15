@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>API Fun: Affirmations</title>
+    <script>
+      function getAffirmation1() {
+        var request = new XMLHttpRequest();
+
+        request.open("GET", "https://www.affirmations.dev/", true);
+        request.setRequestHeader("Access-Control-Allow-Origin", "*");
+        // request.setRequestHeader("Content-Type", "application/json");
+
+        request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+            data = request.responseText;
+            document.getElementById("affirmation1").innerHTML = data;
+          }
+        };
+
+        request.send();
+      }
+
+      async function getAffirmation2() {
+        let headers = new Headers();
+
+        // headers.append("Content-Type", "application/json");
+        // headers.append("Accept", "application/json");
+        headers.append("Origin", "*");
+
+        fetch("https://www.affirmations.dev/", {
+          method: "GET",
+          headers: headers,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("affirmation2").innerHTML = data;
+          })
+          .catch((error) => {
+            console.error("Error", error);
+          });
+      }
+
+      function getAffirmations() {
+        getAffirmation1();
+        getAffirmation2();
+      }
+    </script>
+  </head>
+  <body onload="getAffirmations()" style="text-align: center">
+    Some affirmations to start your day:
+    <div id="affirmation1"></div>
+    <div id="affirmation2"></div>
+
+    <div>
+      <ul style="list-style-type: none">
+        <li>The API returns random affirmations.</li>
+        <li>The API can be found at https://www.affirmations.dev/</li>
+        <li>This API generator uses the option of an affirmation generator</li>
+        <li>
+          This API would be helpful for a) someone who wants to implement daily
+          affirmations into their routine and b) a website for someone to share
+          affirmations with their site visitors
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
